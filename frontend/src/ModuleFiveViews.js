@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import AddProductForm from "./AddProductForm";
 import StudentInfo from "./StudentInfo";
+import UpdateProduct from "./UpdateProduct";
 
 export function FiveViews() {
     const [addProduct, setAddProduct] = useState(false);
     const [displayProducts, setDisplayProducts] = useState(false);
-    const [updateProduct, setUpdateProduct] = useState(false);
+    const [updateProduct, setUpdateProduct] = useState(true);
     const [deleteProduct, setDeleteProduct] = useState(false);
-    const [studentInfo, setStudentInfo] = useState(true);
+    const [studentInfo, setStudentInfo] = useState(false);
 
     function  addProductView() {
         return <AddProductForm />
@@ -18,7 +19,7 @@ export function FiveViews() {
     };
 
     function updateProductView() {
-
+        return <UpdateProduct />
     };
 
     function deleteProductView() {
@@ -32,6 +33,7 @@ export function FiveViews() {
     return (
         <div>
             {addProduct && addProductView()}
+            {updateProduct && updateProductView()}
             {studentInfo && studentInfoView()}
         </div>
     );
