@@ -53,3 +53,32 @@ app.get("/:id", async (req,res) => {
     if (!results) res.send("Not Found").status(404);
     else res.send(results).status(200);
 });
+
+app.post("/addProduct", async (req,res) => {
+    try {
+        await client.connect();
+        const keys = Object.keys(req.body);
+        const values = Object.values(req.body);
+    
+        const newProduct = {
+            "id": values[0],
+            "title": values[1],
+            "price": values[2],
+            "description": values[3],
+            "category": values[4],
+            "image": values[5],
+            "rating": values[6]
+        }
+        console.log(newProduct);
+    
+        const results = await db
+            .collection("fakestore_catalog")
+            .insertOne(newProduct);
+    
+        res.status(200);
+        res.send(results);
+    } catch (error) {
+        console.error("An error occurred: ", error);
+        res.status(500).send({ error: 'An internal server error occurred' });
+    }
+});
