@@ -12,12 +12,6 @@ function UpdateProduct() {
     const [ProductID, setProductID] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // function onSubmit(data) {
-    //     console.log("Submit button clicked.");
-    //     setProductID(data.input_id);
-    //     console.log("Product ID: ", ProductID);
-    // }
-
     function SearchById() {
 
         function handleSubmit(event) {
@@ -44,6 +38,18 @@ function UpdateProduct() {
     };
 
     function ConfirmProduct() {
+        function handleConfirm(event) {
+            event.preventDefault();
+            console.log("Confirm button clicked.");
+            setViewer(2);
+        }
+
+        function handleGoBack(event) {
+            event.preventDefault();
+            console.log("Go Back button clicked.");
+            setViewer(0);
+        } 
+
         return (
             <div>
             <h3>Change the price of this product?</h3><br></br>
@@ -52,11 +58,11 @@ function UpdateProduct() {
                 <div class="card-body">
                     <p class="card-text"><strong>{Products[ProductID].title}</strong></p>
                     <p class="card-text">{Products[ProductID].description}</p>
-                    <p class="card-text">{Products[ProductID].price}</p>
+                    <p class="card-text">${Products[ProductID].price}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Confirm</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Go Back</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleConfirm}>Confirm</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleGoBack}>Go Back</button>
                         </div>
                     </div>
                 </div>
@@ -68,8 +74,7 @@ function UpdateProduct() {
     function UpdatePrice() {
         return (
             <div>
-                {/* <h3>Update Item Price:</h3>
-                <form onSubmit={handleSubmit(onSubmit)} */}
+                UpdatePrice View
             </div>
         );
     };
@@ -80,7 +85,7 @@ function UpdateProduct() {
         <div>
             {viewer===0 && <SearchById />}
             {viewer===1 && <ConfirmProduct />}
-            {/* {viewer===2 && <UpdatePrice />} */}
+            {viewer===2 && <UpdatePrice />}
         </div>
     );
 }
