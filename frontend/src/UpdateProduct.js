@@ -7,9 +7,8 @@ import {Categories} from "./Categories";
 function UpdateProduct() {
     const [dataF,setDataF] = useState({});
     const [viewer,setViewer] = useState(0);
-    const [query, setQuery] = useState('');
-    const [ProductsCategory, setProductsCategory] = useState(Products);
     const [ProductID, setProductID] = useState('');
+    const [ProductPrice, setProductPrice] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     function SearchById() {
@@ -72,10 +71,25 @@ function UpdateProduct() {
     };
 
     function UpdatePrice() {
+        function handleSubmit(event) {
+            event.preventDefault();
+            console.log(`New Price: $${Products[ProductID].price}`)
+        }
+
         return (
-            <div>
-                UpdatePrice View
-            </div>
+            <form onSubmit={handleSubmit}>
+                <p>
+                    <label htmlFor="input_price">
+                        Update Price: $
+                    </label>
+                    <input
+                        type="text"
+                        id="input_price"
+                        value={ProductPrice}
+                        onChange={ (e) => setProductPrice(e.target.value)} />
+                </p>
+                <input type="submit" value="Change Price"/>
+            </form>
         );
     };
 

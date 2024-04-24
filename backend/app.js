@@ -17,7 +17,7 @@ app.listen(port, () => {
 
 // MongoDB
 const url = "mongodb://127.0.0.1:27017";
-const dbName = "secoms319";
+const dbName = "reactdata";
 const client = new MongoClient(url);
 const db = client.db(dbName);
 
@@ -37,3 +37,19 @@ app.get("/listProducts", async (req,res) => {
     res.status(200);
     res.send(results);
 })
+
+app.get("/:id", async (req,res) => {
+    const productid = Number(req.params.id);
+    console.log("Product to find: ", productid);
+
+    await client.connect();
+    console.log("Node connected successfully to GET-id MongoDB");
+    const query = {"id": productid};
+
+    const results = await db.collection("fakestore_catalog")
+        .findOne(query);
+
+    console.log("Results: ", results);
+    if (!results) res.send("Not Found").status(404);
+    else res.send(results).status(200);
+});
